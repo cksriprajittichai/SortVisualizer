@@ -14,18 +14,13 @@ public final class UiHelper {
         this.g = g;
     }
 
-    public void highlightColumn(final int ndx, final int num, final Color color) {
-        g.setColor(color);
-        g.fillRect(ndx * COLUMN_WIDTH, 600 - num, COLUMN_WIDTH, num);
-    }
-
     public void unhighlightColumn(final int ndx, final int num) {
         eraseColumn(ndx);
-        drawColumn(ndx, num);
+        drawColumn(ndx, num, COLUMN_COLOR);
     }
 
-    public void drawColumn(final int ndx, final int num) {
-        g.setColor(COLUMN_COLOR);
+    public void drawColumn(final int ndx, final int num, final Color color) {
+        g.setColor(color);
         g.fillRect(ndx * COLUMN_WIDTH, 600 - num, COLUMN_WIDTH, num);
     }
 

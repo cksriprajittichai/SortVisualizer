@@ -11,10 +11,11 @@ public final class InsertionSorter implements Sorter {
     private static final Color COMPARING = Color.RED;
     private static final Color SORTED = Color.WHITE;
 
-    private final UiHelper uiHelper;
     private int msSleep;
+    private final UiHelper uiHelper;
 
-    public InsertionSorter(final UiHelper uiHelper) {
+    public InsertionSorter(final int msSleep, final UiHelper uiHelper) {
+        this.msSleep = msSleep;
         this.uiHelper = uiHelper;
     }
 
@@ -23,7 +24,7 @@ public final class InsertionSorter implements Sorter {
         System.out.println("Sorting: " + getName());
 
         // Element 0 is in sorted section initially
-        uiHelper.highlightColumn(0, nums.get(0), SORTED);
+        uiHelper.drawColumn(0, nums.get(0), SORTED);
 
         final int n = nums.size();
         int temp;
@@ -45,7 +46,7 @@ public final class InsertionSorter implements Sorter {
              */
             while (sortedIndex >= 0 && temp < nums.get(sortedIndex)) {
                 // Highlight temp, which is at sortedIndex + 1
-                uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), COMPARING);
+                uiHelper.drawColumn(sortedIndex + 1, nums.get(sortedIndex + 1), COMPARING);
 
                 try {
                     Thread.sleep(msSleep);
@@ -62,12 +63,12 @@ public final class InsertionSorter implements Sorter {
                 uiHelper.eraseColumn(sortedIndex + 1);
 
                 // Highlight column switched with temp
-                uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), SORTED);
+                uiHelper.drawColumn(sortedIndex + 1, nums.get(sortedIndex + 1), SORTED);
 
                 sortedIndex--;
 
                 if (sortedIndex < 0 || temp > nums.get(sortedIndex)) {
-                    uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), Color.GREEN);
+                    uiHelper.drawColumn(sortedIndex + 1, nums.get(sortedIndex + 1), Color.GREEN);
 
                     try {
                         Thread.sleep(msSleep);
@@ -77,7 +78,7 @@ public final class InsertionSorter implements Sorter {
                 }
             }
 
-            uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), SORTED);
+            uiHelper.drawColumn(sortedIndex + 1, nums.get(sortedIndex + 1), SORTED);
         }
 
         System.out.println("Finished");
@@ -88,11 +89,6 @@ public final class InsertionSorter implements Sorter {
         temp = nums.get(first);
         nums.set(first, nums.get(second));
         nums.set(second, temp);
-    }
-
-    @Override
-    public void setMsSleep(final int msSleep) {
-        this.msSleep = msSleep;
     }
 
     @Override

@@ -3,7 +3,7 @@ package def;
 public final class Main {
 
    public static void main(final String[] args) {
-       new AppWindow().startApplication();
+       new MenuFrame().startApplication();
    }
 
 }

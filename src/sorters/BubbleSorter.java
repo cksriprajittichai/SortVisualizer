@@ -10,12 +10,14 @@ public final class BubbleSorter implements Sorter {
 
     private static final Color SORTED = Color.WHITE;
     private static final Color COMPARING = Color.YELLOW;
-    private static final Color SWAPPING = Color.RED;
+    private static final Color BEFORE_SWAP = Color.RED;
+    private static final Color AFTER_SWAP = Color.GREEN;
 
-    private final UiHelper uiHelper;
     private int msSleep;
+    private final UiHelper uiHelper;
 
-    public BubbleSorter(final UiHelper uiHelper) {
+    public BubbleSorter(final int msSleep, final UiHelper uiHelper) {
+        this.msSleep = msSleep;
         this.uiHelper = uiHelper;
     }
 
@@ -27,8 +29,8 @@ public final class BubbleSorter implements Sorter {
         for (int i = 0; i < n - 1; i++) {
 
             for (int j = 0; j < n - i - 1; j++) {
-                uiHelper.highlightColumn(j, nums.get(j), COMPARING);
-                uiHelper.highlightColumn(j + 1, nums.get(j + 1), COMPARING);
+                uiHelper.drawColumn(j, nums.get(j), COMPARING);
+                uiHelper.drawColumn(j + 1, nums.get(j + 1), COMPARING);
 
                 try {
                     Thread.sleep(msSleep);
@@ -37,8 +39,8 @@ public final class BubbleSorter implements Sorter {
                 }
 
                 if (nums.get(j) > nums.get(j + 1)) {
-                    uiHelper.highlightColumn(j, nums.get(j), SWAPPING);
-                    uiHelper.highlightColumn(j + 1, nums.get(j + 1), SWAPPING);
+                    uiHelper.drawColumn(j, nums.get(j), BEFORE_SWAP);
+                    uiHelper.drawColumn(j + 1, nums.get(j + 1), BEFORE_SWAP);
 
                     try {
                         Thread.sleep(msSleep);
@@ -53,22 +55,23 @@ public final class BubbleSorter implements Sorter {
                     uiHelper.eraseColumn(j);
                     uiHelper.eraseColumn(j + 1);
 
-                    uiHelper.highlightColumn(j, nums.get(j), SWAPPING);
-                    uiHelper.highlightColumn(j + 1, nums.get(j + 1), SWAPPING);
-                }
+                    uiHelper.drawColumn(j, nums.get(j), AFTER_SWAP);
+                    uiHelper.drawColumn(j + 1, nums.get(j + 1), AFTER_SWAP);
 
-                try {
-                    Thread.sleep(msSleep);
-                } catch (final InterruptedException ie) {
-                    ie.printStackTrace();
+                    try {
+                        Thread.sleep(msSleep);
+                    } catch (final InterruptedException ie) {
+                        ie.printStackTrace();
+                    }
                 }
 
                 uiHelper.unhighlightColumn(j, nums.get(j));
                 uiHelper.unhighlightColumn(j + 1, nums.get(j + 1));
             }
 
-            uiHelper.highlightColumn(nums.size() - 1 - i, nums.get(nums.size() - 1 - i), SORTED);
+            uiHelper.drawColumn(nums.size() - 1 - i, nums.get(nums.size() - 1 - i), SORTED);
         }
+        uiHelper.drawColumn(0, nums.get(0), SORTED);
 
         System.out.println("Finished");
     }
@@ -78,11 +81,6 @@ public final class BubbleSorter implements Sorter {
         temp = nums.get(first);
         nums.set(first, nums.get(second));
         nums.set(second, temp);
-    }
-
-    @Override
-    public void setMsSleep(final int msSleep) {
-        this.msSleep = msSleep;
     }
 
     @Override
