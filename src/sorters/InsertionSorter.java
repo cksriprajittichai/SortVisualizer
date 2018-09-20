@@ -1,21 +1,29 @@
 package sorters;
 
-import def.NumberRangeChangedListener;
 import def.Sorter;
+import def.UiHelper;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public final class InsertionSorter implements Sorter {
 
-    private final NumberRangeChangedListener rangeChangedListener;
+    private static final Color COMPARING = Color.RED;
+    private static final Color SORTED = Color.WHITE;
 
-    public InsertionSorter(final NumberRangeChangedListener rangeChangedListener) {
-        this.rangeChangedListener = rangeChangedListener;
+    private final UiHelper uiHelper;
+    private int msSleep;
+
+    public InsertionSorter(final UiHelper uiHelper) {
+        this.uiHelper = uiHelper;
     }
 
     @Override
     public void sort(final ArrayList<Integer> nums) {
         System.out.println("Sorting: " + getName());
+
+        // Element 0 is in sorted section initially
+        uiHelper.highlightColumn(0, nums.get(0), SORTED);
 
         final int n = nums.size();
         int temp;
@@ -36,14 +44,40 @@ public final class InsertionSorter implements Sorter {
              * are lists backed by arrays. O(n^2) I think.
              */
             while (sortedIndex >= 0 && temp < nums.get(sortedIndex)) {
+                // Highlight temp, which is at sortedIndex + 1
+                uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), COMPARING);
+
+                try {
+                    Thread.sleep(msSleep);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 // This loop will cause unsortedIndex to no longer point at temp, but temp is
                 // always stored in index sortedIndex + 1.
                 swap(nums, sortedIndex, sortedIndex + 1);
 
-                notifySwapListener(sortedIndex, sortedIndex + 1);
+                // Clear excess after swap
+                uiHelper.eraseColumn(sortedIndex);
+                uiHelper.eraseColumn(sortedIndex + 1);
+
+                // Highlight column switched with temp
+                uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), SORTED);
 
                 sortedIndex--;
+
+                if (sortedIndex < 0 || temp > nums.get(sortedIndex)) {
+                    uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), Color.GREEN);
+
+                    try {
+                        Thread.sleep(msSleep);
+                    } catch (final InterruptedException ie) {
+                        ie.printStackTrace();
+                    }
+                }
             }
+
+            uiHelper.highlightColumn(sortedIndex + 1, nums.get(sortedIndex + 1), SORTED);
         }
 
         System.out.println("Finished");
@@ -56,8 +90,9 @@ public final class InsertionSorter implements Sorter {
         nums.set(second, temp);
     }
 
-    public void notifySwapListener(final int first, final int second) {
-        rangeChangedListener.onNumberRangeChanged(first, second);
+    @Override
+    public void setMsSleep(final int msSleep) {
+        this.msSleep = msSleep;
     }
 
     @Override

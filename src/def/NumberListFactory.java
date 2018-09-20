@@ -1,7 +1,5 @@
 package def;
 
-import org.omg.PortableInterceptor.INACTIVE;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,7 +7,7 @@ public final class NumberListFactory {
 
     static ArrayList<Integer> getSmallSorted() {
         final ArrayList<Integer> nums = new ArrayList<>(100);
-        for (int num = 1; num <= 100; num++) {
+        for (int num = 5; num <= 500; num += 5) {
             nums.add(num);
         }
         return nums;

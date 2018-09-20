@@ -8,4 +8,6 @@ public interface Sorter {
 
     String getName();
 
+    void setMsSleep(final int msSleep);
+
 }
