@@ -1,4 +1,8 @@
-package def;
+package swing_components;
+
+import def.NumberListFactory;
+import def.SortAnimation;
+import def.UiHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,38 +30,16 @@ public final class MenuFrame extends JFrame {
         final JComboBox sortNamesComboBox = new JComboBox<>(SORT_NAMES);
         btnPanel.add(sortNamesComboBox);
 
-        final JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, 8);
-        speedSlider.setPaintTicks(true);
-        speedSlider.setPaintLabels(true);
-        speedSlider.setMajorTickSpacing(1);
+        final JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 1, 1000, 750);
         btnPanel.add(speedSlider);
 
         final JButton submitBtn = new JButton("Submit");
         submitBtn.addActionListener(e -> {
             new Thread(() -> {
                 final String sorterName = String.valueOf(sortNamesComboBox.getSelectedItem());
+                final int speed = speedSlider.getValue();
 
-                // speedSlider displays 1 through 10, but a larger msSleep value
-                // corresponds to a slower animation. We want 1 to the slowest
-                // animation, and 10 to be the fastest
-                int msSleep = 11 - speedSlider.getValue();
-                // Magnify msSleep because a ms is tiny
-                msSleep = (int) Math.pow(msSleep, 3);
-
-                createAnimation(NumberListFactory.getSmallShuffled(), sorterName, msSleep);
-
-
-//                sortAnimation.setSorter(String.valueOf(sortNamesComboBox.getSelectedItem()));
-//
-//                // speedSlider displays 1 through 10, but a larger msSleep value
-//                // corresponds to a slower animation. We want 1 to the slowest
-//                // animation, and 10 to be the fastest
-//                int msSleep = 11 - speedSlider.getValue();
-//                // Magnify msSleep because a ms is tiny
-//                msSleep = (int) Math.pow(msSleep, 3);
-//                sortAnimation.setMsSleep(msSleep);
-//
-//                sortAnimation.startAnimation();
+                launchAnimation(NumberListFactory.getSmallShuffled(), sorterName, speed);
             }).start();
         });
         btnPanel.add(submitBtn);
@@ -65,12 +47,15 @@ public final class MenuFrame extends JFrame {
         setContentPane(btnPanel);
     }
 
-    private void createAnimation(final ArrayList<Integer> nums, final String sorterName,
+    private void launchAnimation(final ArrayList<Integer> nums, final String sorterName,
                                  final int msSleep) {
         final AnimationFrame animationFrame = new AnimationFrame();
-        animationFrame.loadAnimation(
-                new SortAnimation(nums, sorterName, msSleep, animationFrame.getUiHelper()));
+        final UiHelper uiHelper = animationFrame.getUiHelper();
+        final SortAnimation sortAnimation =
+                new SortAnimation(nums, sorterName, msSleep, uiHelper);
+        animationFrame.loadAnimation(sortAnimation);
 
+        // Show the initial data for 3 seconds before beginning the sort
         try {
             Thread.sleep(3000);
         } catch (final InterruptedException ie) {

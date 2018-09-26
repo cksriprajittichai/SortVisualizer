@@ -13,18 +13,20 @@ public final class BubbleSorter implements Sorter {
     private static final Color BEFORE_SWAP = Color.RED;
     private static final Color AFTER_SWAP = Color.GREEN;
 
-    private int msSleep;
+    private final int msSleep;
     private final UiHelper uiHelper;
 
-    public BubbleSorter(final int msSleep, final UiHelper uiHelper) {
-        this.msSleep = msSleep;
+    public BubbleSorter(final int speed, final UiHelper uiHelper) {
+        msSleep = calculateMsSleepFromSpeed(speed);
         this.uiHelper = uiHelper;
+    }
+
+    private int calculateMsSleepFromSpeed(final int speed) {
+        return 1001 - speed;
     }
 
     @Override
     public void sort(final ArrayList<Integer> nums) {
-        System.out.println("Sorting: " + getName());
-
         final int n = nums.size();
         for (int i = 0; i < n - 1; i++) {
 
@@ -39,6 +41,9 @@ public final class BubbleSorter implements Sorter {
                 }
 
                 if (nums.get(j) > nums.get(j + 1)) {
+                    /* When a swap occurs, make the columns red before the swap,
+                     * then green after the swap. */
+
                     uiHelper.drawColumn(j, nums.get(j), BEFORE_SWAP);
                     uiHelper.drawColumn(j + 1, nums.get(j + 1), BEFORE_SWAP);
 
@@ -72,8 +77,6 @@ public final class BubbleSorter implements Sorter {
             uiHelper.drawColumn(nums.size() - 1 - i, nums.get(nums.size() - 1 - i), SORTED);
         }
         uiHelper.drawColumn(0, nums.get(0), SORTED);
-
-        System.out.println("Finished");
     }
 
     private void swap(final ArrayList<Integer> nums, final int first, final int second) {

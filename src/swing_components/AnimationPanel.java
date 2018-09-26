@@ -1,4 +1,7 @@
-package def;
+package swing_components;
+
+import def.SortAnimation;
+import def.UiHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +12,7 @@ public final class AnimationPanel extends JPanel {
     static final Dimension DIMENSION = new Dimension(800, 600);
     private SortAnimation sortAnimation;
     private ArrayList<Integer> nums;
+    private boolean sortAnimationIsLoaded = false;
 
     public AnimationPanel() {
         setPreferredSize(DIMENSION);
@@ -18,6 +22,12 @@ public final class AnimationPanel extends JPanel {
     public void loadAnimation(final SortAnimation sortAnimation) {
         this.sortAnimation = sortAnimation;
         nums = sortAnimation.getNums();
+
+        // The initial columns are only painted if sortAnimationIsLoaded
+        if (!sortAnimationIsLoaded) {
+            sortAnimationIsLoaded = true;
+            repaint();
+        }
     }
 
     /**
@@ -29,9 +39,11 @@ public final class AnimationPanel extends JPanel {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(UiHelper.COLUMN_COLOR);
-        for (int i = 0; i < nums.size(); i++) {
-            drawColumn(g, i, nums.get(i));
+        if (sortAnimationIsLoaded) {
+            g.setColor(UiHelper.COLUMN_COLOR);
+            for (int i = 0; i < nums.size(); i++) {
+                drawColumn(g, i, nums.get(i));
+            }
         }
     }
 

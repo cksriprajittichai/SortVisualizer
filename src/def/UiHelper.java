@@ -4,9 +4,9 @@ import java.awt.*;
 
 public final class UiHelper {
 
-    static final int COLUMN_WIDTH = 7;
-    static final Color BACKGROUND_COLOR = Color.BLACK;
-    static final Color COLUMN_COLOR = Color.DARK_GRAY;
+    public static final int COLUMN_WIDTH = 7;
+    public static final Color BACKGROUND_COLOR = Color.BLACK;
+    public static final Color COLUMN_COLOR = Color.DARK_GRAY;
 
     private final Graphics g;
 

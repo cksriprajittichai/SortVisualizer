@@ -10,11 +10,13 @@ public final class SortAnimation {
 
     private final ArrayList<Integer> nums;
     private final Sorter sorter;
+    private final int speed;
 
     public SortAnimation(final ArrayList<Integer> nums, final String sorterName,
-                         final int msSleep, final UiHelper uiHelper) {
+                         final int speed, final UiHelper uiHelper) {
         this.nums = nums;
-        this.sorter = constructSorterFromName(sorterName, msSleep, uiHelper);
+        this.sorter = constructSorterFromName(sorterName, speed, uiHelper);
+        this.speed = speed;
     }
 
     public void startAnimation() {
@@ -22,12 +24,12 @@ public final class SortAnimation {
     }
 
     private Sorter constructSorterFromName(
-            final String sorterName, final int msSleep, final UiHelper uiHelper) {
+            final String sorterName, final int speed, final UiHelper uiHelper) {
         switch (sorterName.toLowerCase(Locale.US)) {
             case "bubble sort":
-                return new BubbleSorter(msSleep, uiHelper);
+                return new BubbleSorter(speed, uiHelper);
             case "insertion sort":
-                return new InsertionSorter(msSleep, uiHelper);
+                return new InsertionSorter(speed, uiHelper);
 //            case "merge startAnimation":
 //                return new MergeSorter(uiHelper);
             default:
@@ -39,4 +41,11 @@ public final class SortAnimation {
         return nums;
     }
 
+    public String getSorterName() {
+        return sorter.getName();
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
 }
