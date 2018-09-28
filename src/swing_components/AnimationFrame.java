@@ -22,7 +22,7 @@ final class AnimationFrame extends JFrame {
         animationPanel.loadAnimation(sortAnimation);
 
         setTitle(String.format(
-                "%s --- speed: %d/1000",
+                "%s - speed: %d/1000",
                 sortAnimation.getSorterName(),
                 sortAnimation.getSpeed()));
     }

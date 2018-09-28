@@ -2,6 +2,7 @@ package def;
 
 import sorters.BubbleSorter;
 import sorters.InsertionSorter;
+import sorters.MergeSorter;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -30,8 +31,8 @@ public final class SortAnimation {
                 return new BubbleSorter(speed, uiHelper);
             case "insertion sort":
                 return new InsertionSorter(speed, uiHelper);
-//            case "merge startAnimation":
-//                return new MergeSorter(uiHelper);
+            case "merge sort":
+                return new MergeSorter(speed, uiHelper);
             default:
                 return null;
         }

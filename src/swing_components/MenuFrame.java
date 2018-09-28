@@ -11,7 +11,11 @@ import java.util.ArrayList;
 public final class MenuFrame extends JFrame {
 
     private static final Dimension FRAME_DIM = new Dimension(400, 100);
-    private static final String[] SORT_NAMES = {"Bubble Sort", "Insertion Sort"};
+    private static final String[] SORT_NAMES = {
+            "Bubble Sort",
+            "Insertion Sort",
+            "Merge Sort"
+    };
 
     public MenuFrame() {
         setTitle("Sort Visualization");

@@ -21,7 +21,8 @@ public final class BubbleSorter implements Sorter {
         this.uiHelper = uiHelper;
     }
 
-    private int calculateMsSleepFromSpeed(final int speed) {
+    @Override
+    public int calculateMsSleepFromSpeed(final int speed) {
         return 1001 - speed;
     }
 
