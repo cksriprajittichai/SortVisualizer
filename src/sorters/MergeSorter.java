@@ -1,6 +1,7 @@
 package sorters;
 
 import def.Sorter;
+import def.SortingConstants;
 import def.UiHelper;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public final class MergeSorter implements Sorter {
 
     @Override
     public int calculateMsSleepFromSpeed(final int speed) {
-        return 1000 - speed;
+        return SortingConstants.MAX_SPEED - speed;
     }
 
     @Override
