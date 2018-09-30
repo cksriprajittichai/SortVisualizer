@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import static def.SortingConstants.MAX_SPEED;
@@ -198,17 +197,19 @@ public final class MenuFrame extends JFrame {
         // Restore
         gbc.insets = NO_INSETS;
 
-        final JRadioButton randomDataTypeRadioBtn = new JRadioButton("Random", true);
+        final JRadioButton randomDataTypeRadioBtn = new JRadioButton("RANDOM", true);
         final JRadioButton sortedDataTypeRadioBtn = new JRadioButton("Ascending");
         final JRadioButton reverseSortedDataTypeRadioBtn = new JRadioButton("Descending");
-        // Must be in button group to implement radio button behavior
-        final ButtonGroup dataTypeRadioBtnGroup = new ButtonGroup() {
-            {
-                add(randomDataTypeRadioBtn);
-                add(sortedDataTypeRadioBtn);
-                add(reverseSortedDataTypeRadioBtn);
-            }
+        final JRadioButton[] dataTypeRadioBtns = {
+                randomDataTypeRadioBtn,
+                sortedDataTypeRadioBtn,
+                reverseSortedDataTypeRadioBtn
         };
+        // Must be in button group to implement radio button behavior
+        final ButtonGroup dataTypeRadioBtnGroup = new ButtonGroup();
+        for (final JRadioButton b : dataTypeRadioBtns) {
+            dataTypeRadioBtnGroup.add(b);
+        }
         gbc.gridx = 3;
         gbc.gridy = 1;
         gbc.insets = new Insets(INSET_BETWEEN_ROWS, 0, 0, 0);
@@ -227,7 +228,15 @@ public final class MenuFrame extends JFrame {
                 final String sorterName = String.valueOf(sortNamesComboBox.getSelectedItem());
                 final int speed = speedSlider.getValue();
 
-                launchAnimation(NumberListFactory.getSmallShuffled(), sorterName, speed);
+                int dataTypeConstant = -1;
+                for (int i = 0; i < dataTypeRadioBtns.length; i++) {
+                    if (dataTypeRadioBtns[i].isSelected()) {
+                        dataTypeConstant = i;
+                        break;
+                    }
+                }
+
+                launchAnimation(NumberListFactory.getData(dataTypeConstant), sorterName, speed);
             }).start();
         });
         gbc.gridx = 3;
@@ -242,7 +251,7 @@ public final class MenuFrame extends JFrame {
         pack();
     }
 
-    private void launchAnimation(final ArrayList<Integer> nums, final String sorterName,
+    private void launchAnimation(final List<Integer> nums, final String sorterName,
                                  final int msSleep) {
         final AnimationFrame animationFrame = new AnimationFrame();
         final UiHelper uiHelper = animationFrame.getUiHelper();

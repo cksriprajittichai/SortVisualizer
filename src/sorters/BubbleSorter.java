@@ -5,7 +5,7 @@ import def.SortingConstants;
 import def.UiHelper;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public final class BubbleSorter implements Sorter {
 
@@ -28,7 +28,7 @@ public final class BubbleSorter implements Sorter {
     }
 
     @Override
-    public void sort(final ArrayList<Integer> nums) {
+    public void sort(final List<Integer> nums) {
         final int n = nums.size();
         for (int i = 0; i < n - 1; i++) {
 
@@ -76,7 +76,7 @@ public final class BubbleSorter implements Sorter {
         uiHelper.drawColumn(0, nums.get(0), SORTED);
     }
 
-    private void swap(final ArrayList<Integer> nums, final int first, final int second) {
+    private void swap(final List<Integer> nums, final int first, final int second) {
         final int temp;
         temp = nums.get(first);
         nums.set(first, nums.get(second));

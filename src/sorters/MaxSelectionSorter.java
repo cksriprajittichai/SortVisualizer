@@ -5,7 +5,7 @@ import def.SortingConstants;
 import def.UiHelper;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public final class MaxSelectionSorter implements Sorter {
 
@@ -24,7 +24,7 @@ public final class MaxSelectionSorter implements Sorter {
     }
 
     @Override
-    public void sort(final ArrayList<Integer> nums) {
+    public void sort(final List<Integer> nums) {
         int sortedSize, i, j, maxNdx;
         for (sortedSize = 0, i = nums.size() - 1 - sortedSize; i > 0; i--) {
             maxNdx = i;
@@ -88,7 +88,7 @@ public final class MaxSelectionSorter implements Sorter {
         return SortingConstants.MAX_SPEED - speed;
     }
 
-    private void swap(final ArrayList<Integer> nums, final int first, final int second) {
+    private void swap(final List<Integer> nums, final int first, final int second) {
         final int temp;
         temp = nums.get(first);
         nums.set(first, nums.get(second));

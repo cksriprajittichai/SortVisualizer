@@ -5,7 +5,7 @@ import def.SortingConstants;
 import def.UiHelper;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public final class InsertionSorter implements Sorter {
 
@@ -26,7 +26,7 @@ public final class InsertionSorter implements Sorter {
     }
 
     @Override
-    public void sort(final ArrayList<Integer> nums) {
+    public void sort(final List<Integer> nums) {
         // Element 0 is in sorted section initially
         uiHelper.drawColumn(0, nums.get(0), SORTED);
 
@@ -75,7 +75,7 @@ public final class InsertionSorter implements Sorter {
         }
     }
 
-    private void swap(final ArrayList<Integer> nums, final int first, final int second) {
+    private void swap(final List<Integer> nums, final int first, final int second) {
         final int temp;
         temp = nums.get(first);
         nums.set(first, nums.get(second));

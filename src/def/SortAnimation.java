@@ -1,14 +1,14 @@
 package def;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public final class SortAnimation {
 
-    private final ArrayList<Integer> nums;
+    private final List<Integer> nums;
     private final Sorter sorter;
     private final int speed;
 
-    public SortAnimation(final ArrayList<Integer> nums, final String sorterName,
+    public SortAnimation(final List<Integer> nums, final String sorterName,
                          final int speed, final UiHelper uiHelper) {
         this.nums = nums;
         this.sorter = SorterFactory.createSorter(sorterName, speed, uiHelper);
@@ -19,7 +19,7 @@ public final class SortAnimation {
         sorter.sort(nums);
     }
 
-    public ArrayList<Integer> getNums() {
+    public List<Integer> getNums() {
         return nums;
     }
 

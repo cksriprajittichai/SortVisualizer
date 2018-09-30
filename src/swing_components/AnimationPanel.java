@@ -5,13 +5,13 @@ import def.UiHelper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 final class AnimationPanel extends JPanel {
 
     static final Dimension DIMENSION = new Dimension(800, 600);
     private SortAnimation sortAnimation;
-    private ArrayList<Integer> nums;
+    private List<Integer> nums;
     private boolean sortAnimationIsLoaded = false;
 
     AnimationPanel() {

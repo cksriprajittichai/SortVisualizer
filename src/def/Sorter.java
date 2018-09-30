@@ -1,10 +1,10 @@
 package def;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Sorter {
 
-    void sort(final ArrayList<Integer> nums);
+    void sort(final List<Integer> nums);
 
     int calculateMsSleepFromSpeed(final int speed);
 

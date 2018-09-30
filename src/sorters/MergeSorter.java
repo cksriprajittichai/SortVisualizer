@@ -6,6 +6,7 @@ import def.UiHelper;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class MergeSorter implements Sorter {
 
@@ -31,11 +32,11 @@ public final class MergeSorter implements Sorter {
     }
 
     @Override
-    public void sort(final ArrayList<Integer> nums) {
+    public void sort(final List<Integer> nums) {
         mergeSort(nums, 0, nums.size());
     }
 
-    private void mergeSort(final ArrayList<Integer> nums, final int firstIndex, final int n) {
+    private void mergeSort(final List<Integer> nums, final int firstIndex, final int n) {
         // Base case
         if (n == 1) {
             return;
@@ -82,7 +83,7 @@ public final class MergeSorter implements Sorter {
         merge(nums, firstIndex, n / 2, n - (n / 2));
     }
 
-    private void merge(final ArrayList<Integer> list, final int firstIndex,
+    private void merge(final List<Integer> list, final int firstIndex,
                        final int leftSize, final int rightSize) {
         final int n = leftSize + rightSize;
         int rightStart = firstIndex + leftSize;

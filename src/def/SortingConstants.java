@@ -1,5 +1,6 @@
 package def;
 
+
 public interface SortingConstants {
 
     int MIN_SPEED = 0;
