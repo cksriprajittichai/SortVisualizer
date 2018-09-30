@@ -9,7 +9,7 @@ import java.util.Objects;
 public final class SorterFactory {
 
     private static final String PATH_TO_SORTERS_DIR =
-            "out/production/SortVisualization/sorters/";
+            "out/production/SortVisualizer/sorters/";
 
     static Sorter createSorter(final String displayName, final int speed,
                                final UiHelper uiHelper) {

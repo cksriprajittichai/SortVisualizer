@@ -13,7 +13,7 @@ public final class MenuFrame extends JFrame {
     private static final List<String> SORT_NAMES = SorterFactory.getSorterNames();
 
     public MenuFrame() {
-        setTitle("Sort Visualization");
+        setTitle("Sort Visualizer");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setPreferredSize(FRAME_DIM);
         pack(); // Vital
