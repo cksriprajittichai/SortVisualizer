@@ -6,7 +6,7 @@ import def.UiHelper;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MaxSelectionSorter implements Sorter {
+public final class MaxSelectionSorter implements Sorter {
 
     private static final Color SORTED = Color.WHITE;
     private static final Color ITERATOR = Color.YELLOW;

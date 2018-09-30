@@ -6,7 +6,7 @@ import def.UiHelper;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MinSelectionSorter implements Sorter {
+public final class MinSelectionSorter implements Sorter {
 
     private static final Color SORTED = Color.WHITE;
     private static final Color ITERATOR = Color.YELLOW;

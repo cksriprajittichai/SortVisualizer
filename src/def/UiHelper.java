@@ -24,14 +24,10 @@ public final class UiHelper {
         g.fillRect(ndx * COLUMN_WIDTH, 600 - num, COLUMN_WIDTH, num);
     }
 
-    /**
-     * Must use fillRect method to remove horizontal lines in columns.
-     *
-     * @param ndx
-     */
     public void eraseColumn(final int ndx) {
         g.setColor(BACKGROUND_COLOR);
-        // width arg is exclusive for fillRect method
+        // Must use fillRect method to remove horizontal lines in columns
+        // Width arg is exclusive for fillRect method
         g.fillRect(ndx * COLUMN_WIDTH, 0, COLUMN_WIDTH, 600);
     }
 

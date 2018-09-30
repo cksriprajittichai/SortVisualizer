@@ -6,7 +6,7 @@ import def.UiHelper;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MergeSorter implements Sorter {
+public final class MergeSorter implements Sorter {
 
     private static final Color SORT_COMPLETE = Color.WHITE;
     private static final Color CURRENT_SECTION = Color.YELLOW;

@@ -7,19 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public final class AnimationPanel extends JPanel {
+final class AnimationPanel extends JPanel {
 
     static final Dimension DIMENSION = new Dimension(800, 600);
     private SortAnimation sortAnimation;
     private ArrayList<Integer> nums;
     private boolean sortAnimationIsLoaded = false;
 
-    public AnimationPanel() {
+    AnimationPanel() {
         setPreferredSize(DIMENSION);
         setBackground(UiHelper.BACKGROUND_COLOR);
     }
 
-    public void loadAnimation(final SortAnimation sortAnimation) {
+    void loadAnimation(final SortAnimation sortAnimation) {
         this.sortAnimation = sortAnimation;
         nums = sortAnimation.getNums();
 
@@ -30,10 +30,8 @@ public final class AnimationPanel extends JPanel {
         }
     }
 
-    /**
+    /*
      * Don't use a UiHelper to draw, should use passed in Graphics
-     *
-     * @param g
      */
     @Override
     protected void paintComponent(final Graphics g) {
@@ -51,7 +49,7 @@ public final class AnimationPanel extends JPanel {
         g.fillRect(x * UiHelper.COLUMN_WIDTH, 600 - height, UiHelper.COLUMN_WIDTH, height);
     }
 
-    public SortAnimation getSortAnimation() {
+    SortAnimation getSortAnimation() {
         return sortAnimation;
     }
 

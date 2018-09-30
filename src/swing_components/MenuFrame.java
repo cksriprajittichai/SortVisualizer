@@ -1,23 +1,16 @@
 package swing_components;
 
-import def.NumberListFactory;
-import def.SortAnimation;
-import def.UiHelper;
+import def.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class MenuFrame extends JFrame {
 
     private static final Dimension FRAME_DIM = new Dimension(400, 100);
-    private static final String[] SORT_NAMES = {
-            "Bubble Sort",
-            "Insertion Sort",
-            "Merge Sort",
-            "Selection Sort (Min)",
-            "Selection Sort (Max)"
-    };
+    private static final List<String> SORT_NAMES = SorterFactory.getSorterNames();
 
     public MenuFrame() {
         setTitle("Sort Visualization");
@@ -33,7 +26,9 @@ public final class MenuFrame extends JFrame {
         btnPanel.setLayout(new FlowLayout());
         btnPanel.setBackground(Color.GREEN);
 
-        final JComboBox sortNamesComboBox = new JComboBox<>(SORT_NAMES);
+        final String[] SORT_NAMES_ARR = new String[SORT_NAMES.size()];
+        SORT_NAMES.toArray(SORT_NAMES_ARR);
+        final JComboBox sortNamesComboBox = new JComboBox<>(SORT_NAMES_ARR);
         btnPanel.add(sortNamesComboBox);
 
         final JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 1, 1000, 750);
