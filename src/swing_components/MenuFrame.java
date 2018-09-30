@@ -14,7 +14,9 @@ public final class MenuFrame extends JFrame {
     private static final String[] SORT_NAMES = {
             "Bubble Sort",
             "Insertion Sort",
-            "Merge Sort"
+            "Merge Sort",
+            "Selection Sort (Min)",
+            "Selection Sort (Max)"
     };
 
     public MenuFrame() {

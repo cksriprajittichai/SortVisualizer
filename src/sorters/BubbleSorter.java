@@ -23,7 +23,7 @@ public final class BubbleSorter implements Sorter {
 
     @Override
     public int calculateMsSleepFromSpeed(final int speed) {
-        return 1001 - speed;
+        return 1000 - speed;
     }
 
     @Override
@@ -47,7 +47,6 @@ public final class BubbleSorter implements Sorter {
 
                     uiHelper.drawColumn(j, nums.get(j), BEFORE_SWAP);
                     uiHelper.drawColumn(j + 1, nums.get(j + 1), BEFORE_SWAP);
-
                     try {
                         Thread.sleep(msSleep);
                     } catch (final InterruptedException ie) {
@@ -56,14 +55,10 @@ public final class BubbleSorter implements Sorter {
 
                     swap(nums, j, j + 1);
 
-                    // eraseColumn method clears the whole column, so unhighlight
-                    // column doesn't need to be called
                     uiHelper.eraseColumn(j);
                     uiHelper.eraseColumn(j + 1);
-
                     uiHelper.drawColumn(j, nums.get(j), AFTER_SWAP);
                     uiHelper.drawColumn(j + 1, nums.get(j + 1), AFTER_SWAP);
-
                     try {
                         Thread.sleep(msSleep);
                     } catch (final InterruptedException ie) {

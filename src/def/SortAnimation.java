@@ -1,8 +1,6 @@
 package def;
 
-import sorters.BubbleSorter;
-import sorters.InsertionSorter;
-import sorters.MergeSorter;
+import sorters.*;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -33,6 +31,10 @@ public final class SortAnimation {
                 return new InsertionSorter(speed, uiHelper);
             case "merge sort":
                 return new MergeSorter(speed, uiHelper);
+            case "selection sort (min)":
+                return new MinSelectionSorter(speed, uiHelper);
+            case "selection sort (max)":
+                return new MaxSelectionSorter(speed, uiHelper);
             default:
                 return null;
         }

@@ -26,7 +26,7 @@ public class MergeSorter implements Sorter {
 
     @Override
     public int calculateMsSleepFromSpeed(final int speed) {
-        return 1001 - speed;
+        return 1000 - speed;
     }
 
     @Override
