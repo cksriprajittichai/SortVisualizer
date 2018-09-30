@@ -76,6 +76,10 @@ public final class MinSelectionSorter implements Sorter {
             // Color sorted section
             uiHelper.drawColumn(i, nums.get(i), SORTED);
         }
+
+        /* The last column (last index) isn't colored in the loop because
+         * i is always < lastIndex. */
+        uiHelper.drawColumn(nums.size() - 1, nums.get(nums.size() - 1), SORTED);
     }
 
     @Override

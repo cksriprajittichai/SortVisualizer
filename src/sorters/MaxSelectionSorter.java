@@ -76,6 +76,10 @@ public final class MaxSelectionSorter implements Sorter {
             // Color sorted section
             uiHelper.drawColumn(i, nums.get(i), SORTED);
         }
+
+        /* The last column (index 0) isn't colored in the loop because
+         * i is always >= 1. */
+        uiHelper.drawColumn(0, nums.get(0), SORTED);
     }
 
     @Override
