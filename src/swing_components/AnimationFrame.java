@@ -1,8 +1,6 @@
 package swing_components;
 
-import def.SortAnimation;
-import def.SortingConstants;
-import def.UiHelper;
+import def.*;
 
 import javax.swing.*;
 
@@ -23,14 +21,17 @@ final class AnimationFrame extends JFrame {
         pack();
     }
 
-    void loadAnimation(final SortAnimation sortAnimation) {
+    void loadAnimation(final SortAnimation sortAnimation, final int dataSizeConstant,
+                       final int dataTypeConstant) {
         animationPanel.loadAnimation(sortAnimation);
 
         setTitle(String.format(
-                "%s - speed: %d/%d",
+                "%s - Speed: %d/%d - Size: %s - Type: %s",
                 sortAnimation.getSorterName(),
                 sortAnimation.getSpeed(),
-                SortingConstants.MAX_SPEED));
+                SortingConstants.MAX_SPEED,
+                DataSizeConstants.getDisplayName(dataSizeConstant),
+                DataTypeConstants.getDisplayName(dataTypeConstant)));
     }
 
     void startAnimation() {

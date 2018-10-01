@@ -272,7 +272,7 @@ public final class MenuFrame extends JFrame {
         final List<Integer> nums = NumberListFactory.getData(dataSizeConstant, dataTypeConstant);
         final SortAnimation sortAnimation =
                 new SortAnimation(nums, sorterName, speed, uiHelper);
-        animationFrame.loadAnimation(sortAnimation);
+        animationFrame.loadAnimation(sortAnimation, dataSizeConstant, dataTypeConstant);
 
         // Delay before starting the sort
         try {

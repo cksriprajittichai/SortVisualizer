@@ -17,5 +17,18 @@ public interface DataSizeConstants {
     int MEDIUM_NUM_POINTS = 400;
     int LARGE_NUM_POINTS = 800;
 
-
+    static String getDisplayName(final int dataSizeConstant) {
+        switch (dataSizeConstant) {
+            case DataSizeConstants.TINY:
+                return "Tiny";
+            case DataSizeConstants.SMALL:
+                return "Small";
+            case DataSizeConstants.MEDIUM:
+                return "Medium";
+            case DataSizeConstants.LARGE:
+                return "Large";
+            default:
+                return "";
+        }
+    }
 }
