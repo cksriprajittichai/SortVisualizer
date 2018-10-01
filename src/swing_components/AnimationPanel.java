@@ -9,14 +9,17 @@ import java.util.List;
 
 final class AnimationPanel extends JPanel {
 
-    static final Dimension DIMENSION = new Dimension(800, 600);
+    static final Dimension DIMENSION = new Dimension(800, 800);
     private SortAnimation sortAnimation;
     private List<Integer> nums;
     private boolean sortAnimationIsLoaded = false;
+    private final int colWidth;
 
-    AnimationPanel() {
+    AnimationPanel(final int dataSizeConstant) {
         setPreferredSize(DIMENSION);
         setBackground(UiHelper.BACKGROUND_COLOR);
+
+        colWidth = UiHelper.calculateColumnWidthFromDataSize(dataSizeConstant);
     }
 
     void loadAnimation(final SortAnimation sortAnimation) {
@@ -46,7 +49,7 @@ final class AnimationPanel extends JPanel {
     }
 
     private void drawColumn(final Graphics g, final int x, final int height) {
-        g.fillRect(x * UiHelper.COLUMN_WIDTH, 600 - height, UiHelper.COLUMN_WIDTH, height);
+        g.fillRect(x * colWidth, 800 - height, colWidth, height);
     }
 
     SortAnimation getSortAnimation() {

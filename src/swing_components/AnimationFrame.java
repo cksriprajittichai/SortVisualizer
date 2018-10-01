@@ -8,15 +8,19 @@ import javax.swing.*;
 
 final class AnimationFrame extends JFrame {
 
-    private final AnimationPanel animationPanel = new AnimationPanel();
+    private final AnimationPanel animationPanel;
+    private final int dataSizeConstant;
 
-    AnimationFrame() {
+    AnimationFrame(final int dataSizeConstant) {
+        animationPanel = new AnimationPanel(dataSizeConstant);
+        this.dataSizeConstant = dataSizeConstant;
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(AnimationPanel.DIMENSION);
-        pack(); // Vital
         setResizable(false);
         setContentPane(animationPanel);
         setVisible(true);
+        pack();
     }
 
     void loadAnimation(final SortAnimation sortAnimation) {
@@ -34,7 +38,7 @@ final class AnimationFrame extends JFrame {
     }
 
     UiHelper getUiHelper() {
-        return new UiHelper(animationPanel.getGraphics());
+        return new UiHelper(animationPanel.getGraphics(), dataSizeConstant);
     }
 
 }

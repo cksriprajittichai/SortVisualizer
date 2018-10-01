@@ -6,43 +6,71 @@ import java.util.List;
 
 public final class NumberListFactory {
 
-    private static List<Integer> getSmallSorted() {
-        final List<Integer> nums = new ArrayList<>(100);
-        for (int num = 5; num <= 500; num += 5) {
-            nums.add(num);
-        }
-        return nums;
-    }
-
-    private static List<Integer> getSmallReverseSorted() {
-        final List<Integer> nums = getSmallSorted();
-        Collections.reverse(nums);
-        return nums;
-    }
-
-    private static List<Integer> getSmallShuffled() {
-        final List<Integer> nums = getSmallSorted();
-        Collections.shuffle(nums);
-        return nums;
-    }
-
-    public static List<Integer> getData(final int dataTypeConstant) {
+    public static List<Integer> getData(final int dataSizeConstant,
+                                        final int dataTypeConstant) {
         final List<Integer> nums;
         switch (dataTypeConstant) {
             case DataTypeConstants.RANDOM:
-                nums = getSmallShuffled();
+                nums = getRandom(dataSizeConstant);
                 break;
             case DataTypeConstants.ASCENDING:
-                nums = getSmallSorted();
+                nums = getSorted(dataSizeConstant);
                 break;
             case DataTypeConstants.DESCENDING:
-                nums = getSmallReverseSorted();
+                nums = getReverseSorted(dataSizeConstant);
                 break;
             default:
                 nums = new ArrayList<>();
                 break;
         }
 
+        return nums;
+    }
+
+    private static List<Integer> getSorted(final int dataSizeConstant) {
+        final int numPts, stepSize;
+        switch (dataSizeConstant) {
+            case DataSizeConstants.TINY:
+                numPts = DataSizeConstants.TINY_NUM_POINTS;
+                stepSize = DataSizeConstants.TINY_STEP_SIZE;
+                break;
+            case DataSizeConstants.SMALL:
+                numPts = DataSizeConstants.SMALL_NUM_POINTS;
+                stepSize = DataSizeConstants.SMALL_STEP_SIZE;
+                break;
+            case DataSizeConstants.MEDIUM:
+                numPts = DataSizeConstants.MEDIUM_NUM_POINTS;
+                stepSize = DataSizeConstants.MEDIUM_STEP_SIZE;
+                break;
+            case DataSizeConstants.LARGE:
+                numPts = DataSizeConstants.LARGE_NUM_POINTS;
+                stepSize = DataSizeConstants.LARGE_STEP_SIZE;
+                break;
+            default:
+                numPts = -1;
+                stepSize = -1;
+                break;
+        }
+
+        final List<Integer> nums = new ArrayList<>(numPts);
+        for (int num = stepSize; num <= numPts * stepSize; num += stepSize) {
+            nums.add(num);
+        }
+        return nums;
+    }
+
+    private static List<Integer> getReverseSorted(final int dataSizeConstant) {
+        final List<Integer> sorted = getSorted(dataSizeConstant);
+        final List<Integer> revSorted = new ArrayList<>(sorted.size());
+        for (int i = sorted.size() - 1; i >= 0; i--) {
+            revSorted.add(sorted.get(i));
+        }
+        return revSorted;
+    }
+
+    private static List<Integer> getRandom(final int dataSizeConstant) {
+        final List<Integer> nums = getSorted(dataSizeConstant);
+        Collections.shuffle(nums);
         return nums;
     }
 

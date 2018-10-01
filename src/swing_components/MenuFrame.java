@@ -68,7 +68,7 @@ public final class MenuFrame extends JFrame {
 
         final JLabel speedLabel = new JLabel("Speed");
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.ipadx = 4; // Create small space between label and text label
@@ -135,7 +135,7 @@ public final class MenuFrame extends JFrame {
             }
         });
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(INSET_BETWEEN_ROWS, 0, 0, 0);
@@ -148,7 +148,7 @@ public final class MenuFrame extends JFrame {
         speedSlider.addChangeListener(
                 e -> speedTextField.setText(String.valueOf(speedSlider.getValue())));
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.NORTHEAST; // Close to label and text field
         // No insets on top so that slider will be close to text field
@@ -166,26 +166,32 @@ public final class MenuFrame extends JFrame {
         // Restore
         gbc.insets = NO_INSETS;
 
+        final JRadioButton tinySizeRadioBtn = new JRadioButton("Tiny");
         final JRadioButton smallSizeRadioBtn = new JRadioButton("Small");
         final JRadioButton mediumSizeRadioBtn = new JRadioButton("Medium");
         final JRadioButton largeSizeRadioBtn = new JRadioButton("Large", true);
-        // Must be in button group to implement radio button behavior
-        final ButtonGroup dataSizeRadioBtnGroup = new ButtonGroup() {
-            {
-                add(smallSizeRadioBtn);
-                add(mediumSizeRadioBtn);
-                add(largeSizeRadioBtn);
-            }
+        final JRadioButton[] dataSizeRadioBtns = {
+                tinySizeRadioBtn,
+                smallSizeRadioBtn,
+                mediumSizeRadioBtn,
+                largeSizeRadioBtn
         };
+        // Must be in button group to implement radio button behavior
+        final ButtonGroup dataSizeRadioBtnGroup = new ButtonGroup();
+        for (final JRadioButton b : dataSizeRadioBtns) {
+            dataSizeRadioBtnGroup.add(b);
+        }
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.insets = new Insets(INSET_BETWEEN_ROWS, 0, 0, 0);
-        menuPanel.add(smallSizeRadioBtn, gbc);
+        menuPanel.add(tinySizeRadioBtn, gbc);
         // Restore
         gbc.insets = NO_INSETS;
         gbc.gridy = 2;
-        menuPanel.add(mediumSizeRadioBtn, gbc);
+        menuPanel.add(smallSizeRadioBtn, gbc);
         gbc.gridy = 3;
+        menuPanel.add(mediumSizeRadioBtn, gbc);
+        gbc.gridy = 4;
         menuPanel.add(largeSizeRadioBtn, gbc);
 
 
@@ -197,7 +203,7 @@ public final class MenuFrame extends JFrame {
         // Restore
         gbc.insets = NO_INSETS;
 
-        final JRadioButton randomDataTypeRadioBtn = new JRadioButton("RANDOM", true);
+        final JRadioButton randomDataTypeRadioBtn = new JRadioButton("Random", true);
         final JRadioButton sortedDataTypeRadioBtn = new JRadioButton("Ascending");
         final JRadioButton reverseSortedDataTypeRadioBtn = new JRadioButton("Descending");
         final JRadioButton[] dataTypeRadioBtns = {
@@ -236,7 +242,15 @@ public final class MenuFrame extends JFrame {
                     }
                 }
 
-                launchAnimation(NumberListFactory.getData(dataTypeConstant), sorterName, speed);
+                int dataSizeConstant = -1;
+                for (int i = 0; i < dataSizeRadioBtns.length; i++) {
+                    if (dataSizeRadioBtns[i].isSelected()) {
+                        dataSizeConstant = i;
+                        break;
+                    }
+                }
+
+                launchAnimation(sorterName, dataSizeConstant, dataTypeConstant, speed);
             }).start();
         });
         gbc.gridx = 3;
@@ -251,12 +265,13 @@ public final class MenuFrame extends JFrame {
         pack();
     }
 
-    private void launchAnimation(final List<Integer> nums, final String sorterName,
-                                 final int msSleep) {
-        final AnimationFrame animationFrame = new AnimationFrame();
+    private void launchAnimation(final String sorterName, final int dataSizeConstant,
+                                 final int dataTypeConstant, final int speed) {
+        final AnimationFrame animationFrame = new AnimationFrame(dataSizeConstant);
         final UiHelper uiHelper = animationFrame.getUiHelper();
+        final List<Integer> nums = NumberListFactory.getData(dataSizeConstant, dataTypeConstant);
         final SortAnimation sortAnimation =
-                new SortAnimation(nums, sorterName, msSleep, uiHelper);
+                new SortAnimation(nums, sorterName, speed, uiHelper);
         animationFrame.loadAnimation(sortAnimation);
 
         // Delay before starting the sort
